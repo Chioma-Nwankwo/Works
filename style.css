@@ -1,0 +1,28 @@
+body{
+    background-image:url(https://outravelandtour.com/wp-content/uploads/2019/12/Best-Neighborhoods-To-Stay-In-Abuja.jpg) ;
+}
+button, h1{
+    border-radius: 10px;
+    border: solid 5px rosybrown;
+    background-color: lightblue;
+}
+h2{
+    color: beige
+    border-radius: 10px;
+    border: solid 5px goldenrod;
+    background-color: brown;
+}
+.name{
+    border-radius: 10px;
+    border: solid 10px rosybrown;
+}
+img{
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+    border: solid 10px rosybrown;
+}
+p{
+    font-family: Helvetica;
+    color: whitesmoke;
+}
