@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+
+{% block title %} Add Order {% endblock %}
+
+{% block content %} 
+<form method="post">
+    <p>
+        {{fm.hidden_tag()}} <!--Helps to protect against the cross site request forgery-->
+    </p>
+    <p>{{fm.menu_id.label(class='')}} <!--This is the text label-->
+        {{fm.menu_id(class='')}} <!--This is the text field-->
+    </p>
+    <p>{{fm.name.label(class='')}} <!--This is the text label-->
+        {{fm.name(class='')}} <!--This is the text field-->
+    </p>
+    <p>{{fm.code.label()}} <!--This is the text label-->
+        {{fm.code()}} <!--This is the text field-->
+    </p>
+    <p>{{fm.submit(class='button_primary')}}
+    
+    </p>
+</form>
+
+{% endblock %}

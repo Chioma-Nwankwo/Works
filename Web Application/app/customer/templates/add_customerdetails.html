@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+
+{% block title %} Add Customer Details {% endblock %}
+
+{% block content %} 
+<form method="post">
+    <p>
+       {{fc.hidden_tag()}} <!--Helps to protect against the cross site request forgery-->
+    </p>
+    <p>{{fc.order_id.label(class='')}} <!--This is the text label-->
+        {{fc.order_id(class='')}} <!--This is the text field-->
+    </p>
+    <p>{{fc.name.label(class='')}} <!--This is the text label-->
+        {{fc.name(class='')}} <!--This is the text field-->
+    </p>
+    <p>{{fc.code.label()}} <!--This is the text label-->
+        {{fc.code()}} <!--This is the text field-->
+    </p>
+    <p>{{fc.price.label()}} <!--This is the text label-->
+        {{fc.price()}} <!--This is the text field-->
+    </p>
+    <p>{{fc.submit(class='button_primary')}}
+    
+    </p>
+</form>
+
+{% endblock %}

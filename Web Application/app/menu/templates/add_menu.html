@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+
+{% block title %} Add Menu {% endblock %}
+
+{% block content %} 
+<form method="post">
+    <p>
+        {{ form.hidden_tag() }} <!--Helps to protect against the cross site request forgery-->
+    </p>
+    <p>{{form.name.label(class='')}} <!--This is the text label-->
+        {{form.name(class='')}} <!--This is the text field-->
+    </p>
+    <p>{{form.code.label()}} <!--This is the text label-->
+        {{form.code()}} <!--This is the text field-->
+    </p>
+    <p>{{form.submit(class='button_primary')}}
+    
+    </p>
+</form>
+
+{% endblock %}
