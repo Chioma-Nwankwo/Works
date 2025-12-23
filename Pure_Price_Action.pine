@@ -1,0 +1,109 @@
+// This Pine Script® code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © chioman059
+
+//@version=6
+strategy("Pure Price Action Engine v10 — Auto Timeframe Adjust", 
+     overlay = true,
+     pyramiding = 1,
+     default_qty_type = strategy.percent_of_equity,
+     default_qty_value = 100,
+     calc_on_order_fills = true,
+     calc_on_every_tick = true,
+     process_orders_on_close = true)
+
+// ===== INPUTS =====
+risk_pct_input  = input.float(0.5, "Risk per trade (%)", minval=0.1, step=0.1)
+partial_exit_pct= input.int(20, "Partial exit %", minval=0, maxval=100)
+
+// Supertrend inputs
+st_atr_len   = input.int(10, "Supertrend ATR Length")
+st_factor    = input.float(3.0, "Supertrend Factor", step=0.1)
+
+// ===== DEFAULT VALUES =====
+var float take_mult = 5.0
+var float atr_mult_stop = 1.0
+var float atr_mult_trail = 1.5
+var int breakout_len = 5
+
+// ===== AUTO TIMEFRAME DETECTION =====
+tf = timeframe.period
+
+if tf == "15"
+    take_mult      := 5.0
+    atr_mult_stop  := 1.0
+    atr_mult_trail := 1.5
+    breakout_len   := 5
+else if tf == "60"
+    take_mult      := 6.0
+    atr_mult_stop  := 1.5
+    atr_mult_trail := 2.0
+    breakout_len   := 10
+else if tf == "240"
+    take_mult      := 7.0
+    atr_mult_stop  := 2.0
+    atr_mult_trail := 2.5
+    breakout_len   := 20
+else if tf == "1D"
+    take_mult      := 8.0
+    atr_mult_stop  := 2.5
+    atr_mult_trail := 3.0
+    breakout_len   := 30
+
+// ===== CALCULATIONS =====
+atr     = ta.atr(14)
+ema20   = ta.ema(close, 20)
+ema50   = ta.ema(close, 50)
+ema200  = ta.ema(close, 200)
+
+// Trend filters
+trendLong  = ema20 > ema50 and ema50 > ema200 and close > ema200
+trendShort = ema20 < ema50 and ema50 < ema200 and close < ema200
+
+// ===== SUPER TREND =====
+[stTrend, stDir] = ta.supertrend(st_factor, st_atr_len)
+// stDir = 1 means bullish, -1 means bearish
+
+// ===== POSITION SIZING =====
+f_qty(_entry,_stop)=>
+    riskAmt = strategy.equity * (risk_pct_input/100)
+    dist = math.abs(_entry - _stop)
+    dist := dist < syminfo.mintick ? syminfo.mintick : dist
+    math.max(1, riskAmt/dist)
+
+// ===== SIGNALS =====
+longCond  = trendLong and stDir == 1 and close > ta.highest(high, breakout_len)[1]
+shortCond = trendShort and stDir == -1 and close < ta.lowest(low, breakout_len)[1]
+
+// ===== LONG ENTRY =====
+if longCond
+    stopL = close - atr_mult_stop * atr
+    tpL   = close + (close - stopL) * take_mult
+    qty   = f_qty(close, stopL)
+    strategy.entry("Long", strategy.long, qty=qty)
+    if partial_exit_pct > 0
+        strategy.exit("PartialL", from_entry="Long", 
+                      limit=close + (close - stopL) * 2, 
+                      qty_percent=partial_exit_pct)
+    strategy.exit("ExitL", from_entry="Long", 
+                  stop=stopL, limit=tpL, 
+                  trail_points=atr_mult_trail * atr)
+
+// ===== SHORT ENTRY =====
+if shortCond
+    stopS = close + atr_mult_stop * atr
+    tpS   = close - (stopS - close) * take_mult
+    qty   = f_qty(close, stopS)
+    strategy.entry("Short", strategy.short, qty=qty)
+    if partial_exit_pct > 0
+        strategy.exit("PartialS", from_entry="Short", 
+                      limit=close - (stopS - close) * 2, 
+                      qty_percent=partial_exit_pct)
+    strategy.exit("ExitS", from_entry="Short", 
+                  stop=stopS, limit=tpS, 
+                  trail_points=atr_mult_trail * atr)
+
+// ===== VISUALS =====
+plot(ema20,  "EMA20",  color=color.rgb(189, 42, 42))
+plot(ema50,  "EMA50",  color=color.rgb(67, 42, 4))
+plot(ema200, "EMA200", color=color.rgb(9, 38, 144))
+plot(stTrend, "Supertrend", color=stDir == 1 ? color.green : color.red)
