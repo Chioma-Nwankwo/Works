@@ -1,0 +1,99 @@
+<div style="max-width:600px;margin:3rem auto;text-align:center;font-family:'Inter',sans-serif;">
+  <h2 style="font-size:1.6rem;margin-bottom:1.5rem;color:#1e3a8a;">📈 Strategic Score Overview</h2>
+
+  <svg viewBox="0 0 200 120" style="width:100%;height:auto;">
+    <defs>
+      <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#1e3a8a"/>
+        <stop offset="100%" stop-color="#f59e0b"/>
+      </linearGradient>
+    </defs>
+    <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="#eee" stroke-width="12"/>
+    <path id="scoreArc" d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="url(#arcGradient)" stroke-width="12" stroke-dasharray="251.2" stroke-dashoffset="251.2"/>
+    
+    <polygon id="needle" points="100,100 104,100 100,30 96,100" fill="#111827" style="transform-origin: 100px 100px; transform: rotate(0deg); transition: transform 1.5s ease;"/>
+    
+    <text id="scoreText" x="100" y="115" text-anchor="middle" fill="#111827" font-size="16" font-weight="700"></text>
+    <text x="20" y="115" fill="#6b7280" font-size="10">0</text>
+    <text x="60" y="85" fill="#6b7280" font-size="10">25</text>
+    <text x="100" y="75" fill="#6b7280" font-size="10">50</text>
+    <text x="140" y="85" fill="#6b7280" font-size="10">75</text>
+    <text x="180" y="115" fill="#6b7280" font-size="10">100</text>
+  </svg>
+
+  <div id="categoryText" style="margin-top:1.5rem;color:#1e3a8a;font-weight:500;"></div>
+</div>
+
+<div style="max-width:800px;margin:auto;padding:2rem;font-family:'Inter',sans-serif;color:#111827;">
+  <h2 style="text-align:center;font-size:1.8rem;margin-bottom:2rem;background:linear-gradient(135deg,#1e3a8a,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+    🗝️ Your Key Insights
+  </h2>
+
+  <div style="margin-bottom:2rem;padding:2rem;border-radius:16px;background:linear-gradient(135deg,#1e3a8a,#f59e0b);color:white;box-shadow:0 4px 20px rgba(0,0,0,0.15);opacity:0;transform:translateY(30px);transition:all 0.8s ease;" class="fade-in">
+    <h3 style="margin-bottom:0.5rem;">📌 Your Strategic Strength</h3>
+    <p>You may already have a basic structure for decision-making or team alignment.</p>
+  </div>
+
+  <div style="margin-bottom:2rem;padding:2rem;border-radius:16px;background:linear-gradient(135deg,#1e3a8a,#f59e0b);color:white;box-shadow:0 4px 20px rgba(0,0,0,0.15);opacity:0;transform:translateY(30px);transition:all 0.8s ease;" class="fade-in">
+    <h3 style="margin-bottom:0.5rem;">🛠️ Your Growth Opportunity</h3>
+    <p>Critical areas like competitive intelligence, tracking success metrics, or resource planning may need improvement.</p>
+  </div>
+
+  <div style="padding:2rem;border-radius:16px;background:linear-gradient(135deg,#1e3a8a,#f59e0b);color:white;box-shadow:0 4px 20px rgba(0,0,0,0.15);opacity:0;transform:translateY(30px);transition:all 0.8s ease;" class="fade-in">
+    <h3 style="margin-bottom:0.5rem;">🧭 Your Next Priority</h3>
+    <p>Download our free <strong>Strategic Planning Starter Guide</strong> to fix gaps and build a full strategy framework.</p>
+    <div style="text-align:center;margin-top:1rem;">
+      <a href="/downloads/strategic-guide.pdf" style="padding:1rem 2rem;background:white;color:#1e3a8a;border-radius:12px;text-decoration:none;font-weight:600;">📥 Download the Starter Guide</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const score = parseInt(new URLSearchParams(window.location.search).get("score") || "0", 10);
+  const needle = document.getElementById("needle");
+  const arc = document.getElementById("scoreArc");
+  const scoreText = document.getElementById("scoreText");
+  const categoryText = document.getElementById("categoryText");
+
+  const degrees = Math.min(Math.max(score / 100 * 180, 0), 180);
+  setTimeout(() => {
+    needle.style.transform = `rotate(${degrees}deg)`;
+  }, 300);
+
+  const arcLength = 251.2;
+  let currentOffset = arcLength;
+  const targetOffset = arcLength - (arcLength * score / 100);
+  const step = 4;
+
+  function animateArc() {
+    if (currentOffset > targetOffset) {
+      currentOffset -= step;
+      arc.style.strokeDashoffset = currentOffset;
+      requestAnimationFrame(animateArc);
+    } else {
+      arc.style.strokeDashoffset = targetOffset;
+    }
+  }
+  setTimeout(animateArc, 300);
+
+  scoreText.textContent = `Score: ${score}/100`;
+
+  const categories = [
+    { min: 90, emoji: "🏆", label: "Strategic Excellence", desc: "You're operating at world-class strategic levels" },
+    { min: 70, emoji: "🚀", label: "Strategic Competence", desc: "Strong foundation with opportunities for optimization" },
+    { min: 50, emoji: "🧱", label: "Strategic Development", desc: "Good basics but significant gaps to address" },
+    { min: 30, emoji: "🔧", label: "Strategic Foundation", desc: "Basic approach needs systematic development" },
+    { min: 0,  emoji: "🛠️", label: "Strategic Starting Point", desc: "Critical need for strategic framework development" }
+  ];
+  const selected = categories.find(c => score >= c.min);
+  categoryText.innerHTML = `<h3 style="margin-bottom:0.5rem;">${selected.emoji} ${selected.label}</h3><p style="font-size:0.95rem;color:#111827;">${selected.desc}</p>`;
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".fade-in").forEach((el, i) => {
+      setTimeout(() => {
+        el.style.opacity = 1;
+        el.style.transform = "translateY(0)";
+      }, 400 + i * 200);
+    });
+  });
+</script>

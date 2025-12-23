@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRT AI Solutions - NGO Support & Strategic Planning GPT</title>
+    
+    <!-- External Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        :root {
+            --primary-red: #DC2626;
+            --primary-orange: #EA580C;
+            --primary-black: #1F2937;
+            --primary-grey: #6B7280;
+            --primary-pink: #EC4899;
+            --light-grey: #F3F4F6;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-orange) 50%, var(--primary-pink) 100%);
+        }
+        
+        .animated-heading {
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .animated-button {
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        .animated-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.3);
+            animation: none;
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .slide-in-left {
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        .slide-in-right {
+            animation: slideInRight 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .service-card {
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .floating-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-orange), var(--primary-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-orange));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-red);
+            border: 2px solid var(--primary-red);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary-red);
+            color: white;
+        }
+        
+        .tab-button {
+            transition: all 0.3s ease;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .tab-active {
+            background: var(--primary-red);
+            color: white;
+        }
+        
+        .tab-inactive {
+            background: transparent;
+            color: var(--primary-grey);
+        }
+        
+        .tab-inactive:hover {
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--primary-red);
+        }
+        
+        .feature-icon {
+            animation: rotate 10s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .typing-animation {
+            overflow: hidden;
+            border-right: 2px solid var(--primary-orange);
+            white-space: nowrap;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary-orange) }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-gradient">MRT AI Solutions</h1>
+                </div>
+                <div class="flex space-x-4">
+                    <button id="ngoTab" class="tab-button tab-active">NGO Support</button>
+                    <button id="strategyTab" class="tab-button tab-inactive">Strategic Planning</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg py-20 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 animated-heading">
+                    Transform Your Organization
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 fade-in opacity-90">
+                    Professional AI-powered solutions for Nigerian NGOs and entrepreneurs
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                    <button class="btn-primary animated-button text-lg px-8 py-4">
+                        <i class="fas fa-rocket mr-2"></i>
+                        Start Free Trial
+                    </button>
+                    <button class="btn-secondary animated-button text-lg px-8 py-4 bg-white text-red-600 border-white hover:bg-red-600 hover:text-white">
+                        <i class="fas fa-calendar mr-2"></i>
+                        Book Demo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Selection -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4 animated-heading">
+                    Choose Your Solution
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Professional-grade AI systems tailored for your specific needs
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="service-card p-8 rounded-lg floating-animation">
+                    <div class="text-center">
+                        <i class="fas fa-heart text-5xl text-red-500 mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800">NGO Support GPT</h3>
+                        <p class="text-gray-600 mb-6">
+                            Professional-grade systems for Nigerian NGOs. Focus less on admin, more on impact.
+                        </p>
+                        <button class="btn-primary animated-button w-full" onclick="showNGOContent()">
+                            <i class="fas fa-arrow-right mr-2"></i>
+                            Explore NGO Solutions
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="service-card p-8 rounded-lg floating-animation">
+                    <div class="text-center">
+                        <i class="fas fa-chart-line text-5xl text-orange-500 mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800">Strategic Planning GPT</h3>
+                        <p class="text-gray-600 mb-6">
+                            Custom GPTs for Nigerian entrepreneurs. Build strategy with clarity, speed, and confidence.
+                        </p>
+                        <button class="btn-primary animated-button w-full" onclick="showStrategyContent()">
+                            <i class="fas fa-arrow-right mr-2"></i>
+                            Explore Strategy Tools
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NGO Support Content -->
+    <div id="ngoContent" class="service-content">
+        <!-- NGO Problem Section -->
+        <section class="py-16 bg-red-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-6 animated-heading">
+                        You're Doing Sacred Work. But Chaos is Killing Your Impact.
+                    </h2>
+                    <div class="max-w-4xl mx-auto">
+                        <p class="text-lg text-gray-700 mb-6 slide-in-left">
+                            You didn't start your NGO to fill out forms or chase receipts. You started it to fight poverty. To uplift communities. To protect lives. But every hour buried in administration is an hour stolen from your mission.
+                        </p>
+                        <p class="text-lg text-gray-700 mb-6 slide-in-right">
+                            Without donor-ready systems, even the best-run NGOs miss funding. Teams get overwhelmed. Programs collapse. And lives go untouched.
+                        </p>
+                        <p class="text-xl font-semibold text-red-600 fade-in">
+                            This is not a leadership problem. It's a systems problem.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NGO Solution Section -->
+        <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-6 animated-heading">
+                        Meet the First AI Built to Run Your NGO Like the Professionals Do
+                    </h2>
+                    <p class="text-xl text-gray-600 mb-8 max-w-4xl mx-auto">
+                        Imagine 8 world-class consultants guiding your organization — available 24/7, speaking your language, and built with Nigerian regulations in mind. That's the MRT NGO Support GPT.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="text-center p-6 rounded-lg bg-gray-50 hover:bg-red-50 transition-all duration-300">
+                        <i class="fas fa-lightbulb text-4xl text-red-500 mb-4 feature-icon"></i>
+                        <h3 class="text-xl font-semibold mb-3">Strategic Clarity</h3>
+                        <p class="text-gray-600">Theories of Change that guide your mission</p>
+                    </div>
+                    
+                    <div class="text-center p-6 rounded-lg bg-gray-50 hover:bg-red-50 transition-all duration-300">
+                        <i class="fas fa-file-alt text-4xl text-orange-500 mb-4 feature-icon"></i>
+                        <h3 class="text-xl font-semibold mb-3">Winning Proposals</h3>
+                        <p class="text-gray-600">Grant proposals that get funded</p>
+                    </div>
+                    
+                    <div class="text-center p-6 rounded-lg bg-gray-50 hover:bg-red-50 transition-all duration-300">
+                        <i class="fas fa-chart-bar text-4xl text-pink-500 mb-4 feature-icon"></i>
+                        <h3 class="text-xl font-semibold mb-3">M&E Frameworks</h3>
+                        <p class="text-gray-600">Aligned to donor standards</p>
+                    </div>
+                    
+                    <div class="text-center p-6 rounded-lg bg-gray-50 hover:bg-red-50 transition-all duration-300">
+                        <i class="fas fa-calculator text-4xl text-red-500 mb-4 feature-icon"></i>
+                        <h3 class="text-xl font-semibold mb-3">Financial Systems</h3>
+                        <p class="text-gray-600">That pass audits with flying colors</p>
+                    </div>
+                    
+                    <div class="text-center p-6 rounded-lg bg-gray-50 hover:bg-red-50 transition-all duration-300">
+                        <i class="fas fa-clipboard-check text-4xl text-orange-500 mb-4 feature-icon"></i>
+                        <h3 class="text-xl font-semibold mb-3">Impact Reports</h3>
+                        <p class="text-gray-600">Prove your value to partners</p>
+                    </div>
+                    
+                    <div class="text-center p-6 rounded-lg bg-gray-50 hover:bg-red-50 transition-all duration-300">
+                        <i class="fas fa-users text-4xl text-pink-500 mb-4 feature-icon"></i>
+                        <h3 class="text-xl font-semibold mb-3">Team Support</h3>
+                        <p class="text-gray-600">24/7 AI guidance for your team</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NGO Features Section -->
+        <section class="py-16 bg-gray-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-6 animated-heading">
+                        Professional Systems. Community-Driven Pricing.
+                    </h2>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-6 text-red-600">What's Included:</h3>
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                    <span>All-in-one NGO operations platform</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                    <span>AI agents trained on USAID, EU, World Bank expectations</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                    <span>Localized for Nigerian laws, languages, and logic</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                    <span>Pre-built templates for proposals, M&E, reports, budgets</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                    <span>WhatsApp coaching + responsive support</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                    <span>30-day free trial. Cancel anytime.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-red-50 rounded-lg p-6 mb-6">
+                                <div class="text-4xl font-bold text-red-600 mb-2">₦15,000</div>
+                                <div class="text-gray-600">per month</div>
+                            </div>
+                            <button class="btn-primary animated-button w-full mb-4">
+                                <i class="fas fa-rocket mr-2"></i>
+                                Join Pilot Access
+                            </button>
+                            <p class="text-sm text-gray-500">Start your 30-day free trial today</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NGO Impact Section -->
+        <section class="py-16 bg-red-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold mb-6 animated-heading">
+                        Finally. Systems That Let You Lead.
+                    </h2>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="text-center p-6">
+                        <i class="fas fa-trophy text-4xl text-yellow-300 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-3">Triple Your Grant Acceptance Rate</h3>
+                        <p class="opacity-90">Professional proposals that donors can't ignore</p>
+                    </div>
+                    
+                    <div class="text-center p-6">
+                        <i class="fas fa-clock text-4xl text-yellow-300 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-3">Cut Admin Time by 60%</h3>
+                        <p class="opacity-90">Spend more time on your mission, less on paperwork</p>
+                    </div>
+                    
+                    <div class="text-center p-6">
+                        <i class="fas fa-handshake text-4xl text-yellow-300 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-3">Get Renewed Funding</h3>
+                        <p class="opacity-90">Reports that prove your impact and value</p>
+                    </div>
+                    
+                    <div class="text-center p-6">
+                        <i class="fas fa-users text-4xl text-yellow-300 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-3">Build Sustainable Teams</h3>
+                        <p class="opacity-90">Turn passionate volunteers into professional staff</p>
+                    </div>
+                    
+                    <div class="text-center p-6">
+                        <i class="fas fa-chart-line text-4xl text-yellow-300 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-3">Investment-Ready Organization</h3>
+                        <p class="opacity-90">Show donors you're built to last</p>
+                    </div>
+                    
+                    <div class="text-center p-6">
+                        <i class="fas fa-star text-4xl text-yellow-300 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-3">Build a Legacy</h3>
+                        <p class="opacity-90">Beyond surviving - you're thriving</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Strategy Content -->
+    <div id="strategyContent" class="service-content hidden">
+        <!-- Strategy Problem Section -->
+        <section class="py-16 bg-orange-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-6 animated-heading">
+                        Hard Work Isn't Enough Without Direction.
+                    </h2>
+                    <div class="max-w-4xl mx-auto">
+                        <p class="text-lg text-gray-700 mb-6 slide-in-left">
+                            You're doing everything right: showing up, pushing hard, investing your savings. But you still feel like you're spinning your wheels. Most Nigerian SMEs don't lack hustle. They lack a strategy. A clear, confident plan that connects vision to execution.
+                        </p>
+                        <p class="text-xl font-semibold text-orange-600 fade-in">
+                            And strategy consultants? ₦500,000 and a 3-month wait. No thanks.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Strategy Solution Section -->
+        <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-6 animated-heading">
+                        Your Strategic Planning Dream Team. Compressed Into a Custom GPT.
+                    </h2>
+                    <p class="text-xl text-gray-600 mb-8 max-w-4xl mx-auto">
+                        Meet your new team of AI agents:
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="text-center p-6 rounded-lg bg-gradient-to-br from-orange-50 to-red-50 hover:from-orange-100 hover:to-red-100 transition-all duration-300">
+                        <i class="fas fa-search text-3xl text-orange-500 mb-4"></i>
+                        <h3 class="text-lg font-semibold mb-2">Market Discovery</h3>
+                        <p class="text-sm text-gray-600">Know where you stand and who needs you</p>
+                    </div>
+                    
+                    <div class="text-center p-6 rounded-lg bg-gradient-to-br from-orange-50 to-red-50 hover:from-orange-100 hover:to-red-100 transition-all duration-300">
+                        <i class="fas fa-eye text-3xl text-red-500 mb-4"></i>
+                        <h3 class="text-lg font-semibold mb-2">Vision Agent</h3>
+                        <p class="text-sm text-gray-600">Define a future worth building</p>
+                    </div>
+                    
+                    <div class="text-center p-6 rounded-lg bg-gradient-to-br from-orange-50 to-red-50 hover:from-orange-100 hover:to-red-100 transition-all duration-300">
+                        <i class="fas fa-palette text-3xl text-pink-500 mb-4"></i>
+                        <h3 class="text-lg font-semibold mb-2">Brand Architect</h3>
+                        <p class="text-sm text-gray-600">Position your business with power</p>
+                    </div>
+                    
+                    <div class="text-center p-6 rounded-lg bg-gradient-to-br from-orange-50 to-red-50 hover:from-orange-100 hover:to-red-100 transition-all duration-300">
+                        <i class="fas fa-gift text-3xl text-orange-500 mb-4"></i>
+                        <h3 class="text-lg font-semibold mb-2">Offer Designer</h3>
+                        <p class="text-sm text-gray-600">Package what customers can't resist</p>
+                    </div>
+                    
+                    <div class="text-center p-6 rounded-lg bg-gradient-to-br from-orange-50 to-red-50 hover:from-orange-100 hover:to-red-100 transition-all duration-300">
+                        <i class="fas fa-chart-pie text-3xl text-red-500 mb-4"></i>
+                        <h3 class="text-lg font-semibold mb-2">Value Modeler</h3>
+                        <p class="text-sm text-gray-600">Design revenue streams that grow</p>
+                    </div>
+                    
+                    <div class="text-center p-6 rounded-lg bg-gradient-to-br from-orange-50 to-red-50 hover:from-orange-100 hover:to-red-100 transition-all duration-300">
+                        <i class="fas fa-bullseye text-3xl text-pink-500 mb-4"></i>
+                        <h3 class="text-lg font-semibold mb-2">Goals & Metrics Coach</h3>
+                        <p class="text-sm text-gray-600">Track what really matters</p>
+                    </div>
+                    
+                    <div class="text-center p-6 rounded-lg bg-gradient-to-br from-orange-50 to-red-50 hover:from-orange-100 hover:to-red-100 transition-all duration-300">
+                        <i class="fas fa-map text-3xl text-orange-500 mb-4"></i>
+                        <h3 class="text-lg font-semibold mb-2">Execution Planner</h3>
+                        <p class="text-sm text-gray-600">Map your playbook</p>
+                    </div>
+                    
+                    <div class="text-center p-6 rounded-lg bg-gradient-to-br from-orange-50 to-red-50 hover:from-orange-100 hover:to-red-100 transition-all duration-300">
+                        <i class="fas fa-shield-alt text-3xl text-red-500 mb-4"></i>
+                        <h3 class="text-lg font-semibold mb-2">Strategy Auditor</h3>
+                        <p class="text-sm text-gray-600">Check your blind spots</p>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-12">
+                    <p class="text-lg text-gray-600 font-medium">
+                        Each agent guides you through a step in your full strategic plan.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Strategy Features Section -->
+        <section class="py-16 bg-gray-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-6 animated-heading">
+                        Fortune 500 Thinking. Nigerian Hustle.
+                    </h2>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-6 text-orange-600">What You Get:</h3>
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                    <span>Full business strategy in 2–3 weeks</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                    <span>Frameworks used by McKinsey, Harvard, and top local consultants</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                    <span>Built for Nigerian entrepreneurs, startups, and teams</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                    <span>WhatsApp coaching and weekly check-ins</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                                    <span>21-day free trial. No credit card needed.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-orange-50 rounded-lg p-6 mb-6">
+                                <div class="text-4xl font-bold text-orange-600 mb-2">₦25,000</div>
+                                <div class="text-gray-600">per month during pilot</div>
+                            </div>
+                            <button class="btn-primary animated-button w-full mb-4" style="background: linear-gradient(135deg, var(--primary-orange), var(--primary-red));">
+                                <i class="fas fa-rocket mr-2"></i>
+                                Join the Pilot
+                            </button>
+                            <p class="text-sm text-gray-500">Start your 21-day free trial today</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Strategy Impact Section -->
+        <section class="py-16 bg-orange-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold mb-6 animated-heading">
+                        Know Exactly What to Do Next. And Why.
+                    </h2>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="text-center p-6">
+                        <i class="fas fa-compass text-4xl text-yellow-300 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-3">Say Goodbye to Guesswork</h3>
+                        <p class="opacity-90">Clear direction based on data and strategy</p>
+                    </div>
+                    
+                    <div class="text-center p-6">
+                        <i class="fas fa-presentation text-4xl text-yellow-300 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-3">Pitch with Confidence</h3>
+                        <p class="opacity-90">To investors, customers, and partners</p>
+                    </div>
+                    
+                    <div class="text-center p-6">
+                        <i class="fas fa-users-cog text-4xl text-yellow-300 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-3">Align Your Team</h3>
+                        <p class="opacity-90">One clear direction everyone understands</p>
+                    </div>
+                    
+                    <div class="text-center p-6">
+                        <i class="fas fa-rocket text-4xl text-yellow-300 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-3">Scale with Purpose</h3>
+                        <p class="opacity-90">Get unstuck and grow strategically</p>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-12">
+                    <p class="text-2xl font-semibold">
+                        You're not just hustling. You're building with precision.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Social Proof Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6 animated-heading">
+                    Built With Nigerian Organizations in Mind
+                </h2>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto">
+                    From grassroots initiatives to international partners, real Nigerian organizations are shaping these platforms. Every tool, template, and workflow was built based on actual field use.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="text-center p-6 bg-gray-50 rounded-lg">
+                    <div class="text-4xl font-bold text-red-600 mb-2">100%</div>
+                    <div class="text-gray-600">Plan Completion Rate</div>
+                </div>
+                
+                <div class="text-center p-6 bg-gray-50 rounded-lg">
+                    <div class="text-4xl font-bold text-orange-600 mb-2">90%</div>
+                    <div class="text-gray-600">User Satisfaction</div>
+                </div>
+                
+                <div class="text-center p-6 bg-gray-50 rounded-lg">
+                    <div class="text-4xl font-bold text-pink-600 mb-2">3 weeks</div>
+                    <div class="text-gray-600">Average Strategy Completion</div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <p class="text-lg text-gray-600 font-medium">
+                    Your voice could help define the next version.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="py-20 gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 animated-heading">
+                Get the Systems Your Mission Deserves
+            </h2>
+            <p class="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+                Professional AI-powered solutions designed specifically for Nigerian organizations. Start your transformation today.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <button class="btn-primary animated-button text-lg px-8 py-4 bg-white text-red-600 hover:bg-gray-100">
+                    <i class="fas fa-play mr-2"></i>
+                    Start Free Trial Now
+                </button>
+                <button class="btn-secondary animated-button text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-red-600">
+                    <i class="fas fa-phone mr-2"></i>
+                    Talk to a Specialist
+                </button>
+            </div>
+            
+            <div class="mt-8 text-sm opacity-75">
+                <p>✓ 30-day free trial for NGOs • ✓ 21-day free trial for Strategy • ✓ No credit card required</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 text-gradient">MRT AI Solutions</h3>
+                    <p class="text-gray-400">
+                        Professional AI-powered solutions for Nigerian NGOs and entrepreneurs.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">NGO Support</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Grant Writing</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">M&E Systems</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Financial Management</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Impact Reporting</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Strategic Planning</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Market Research</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Business Strategy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Brand Development</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Execution Planning</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Connect</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">WhatsApp Support</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Email</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">LinkedIn</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 MRT AI Solutions. All rights reserved. Built for Nigerian organizations.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab switching functionality
+        const ngoTab = document.getElementById('ngoTab');
+        const strategyTab = document.getElementById('strategyTab');
+        const ngoContent = document.getElementById('ngoContent');
+        const strategyContent = document.getElementById('strategyContent');
+
+        function showNGOContent() {
+            ngoContent.classList.remove('hidden');
+            strategyContent.classList.add('hidden');
+            ngoTab.classList.add('tab-active');
+            ngoTab.classList.remove('tab-inactive');
+            strategyTab.classList.add('tab-inactive');
+            strategyTab.classList.remove('tab-active');
+        }
+
+        function showStrategyContent() {
+            strategyContent.classList.remove('hidden');
+            ngoContent.classList.add('hidden');
+            strategyTab.classList.add('tab-active');
+            strategyTab.classList.remove('tab-inactive');
+            ngoTab.classList.add('tab-inactive');
+            ngoTab.classList.remove('tab-active');
+        }
+
+        ngoTab.addEventListener('click', showNGOContent);
+        strategyTab.addEventListener('click', showStrategyContent);
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.animated-heading, .fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Button click effects
+        document.querySelectorAll('.animated-button').forEach(button => {
+            button.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // Initialize with NGO content showing
+        showNGOContent();
+    </script>
+</body>
+</html>
