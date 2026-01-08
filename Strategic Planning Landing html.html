@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategic Planning GPT - Stop Guessing. Start Leading.</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --teal: #14b8a6;
+            --navy: #1e3a8a;
+            --black: #111827;
+            --grey: #6b7280;
+            --gold: #f59e0b;
+            --dark-teal: #0f766e;
+            --light-grey: #f3f4f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--black);
+        }
+
+        .animated-gradient {
+            background: linear-gradient(135deg, var(--teal), var(--navy), var(--gold));
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .animated-heading {
+            animation: slideInUp 1s ease-out;
+            background: linear-gradient(135deg, var(--teal), var(--navy));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animated-button {
+            position: relative;
+            background: linear-gradient(135deg, var(--teal), var(--navy));
+            border: none;
+            border-radius: 12px;
+            padding: 16px 32px;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(20, 184, 166, 0.3);
+        }
+
+        .animated-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .animated-button:hover::before {
+            left: 100%;
+        }
+
+        .animated-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(20, 184, 166, 0.4);
+        }
+
+        .secondary-button {
+            background: transparent;
+            border: 2px solid var(--teal);
+            color: var(--teal);
+            box-shadow: none;
+        }
+
+        .secondary-button:hover {
+            background: var(--teal);
+            color: white;
+        }
+
+        .gold-button {
+            background: linear-gradient(135deg, var(--gold), #d97706);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .gold-button:hover {
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(20, 184, 166, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+        }
+
+        .agent-card {
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0.05), rgba(30, 58, 138, 0.05));
+            border: 1px solid rgba(20, 184, 166, 0.2);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .agent-card:hover {
+            transform: translateX(8px);
+            border-color: var(--teal);
+            box-shadow: 0 4px 20px rgba(20, 184, 166, 0.15);
+        }
+
+        .stats-counter {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--teal);
+            display: block;
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(30, 58, 138, 0.1));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--teal);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-brain text-2xl mr-3" style="color: var(--teal);"></i>
+                    <span class="text-xl font-bold" style="color: var(--navy);">Strategic Planning GPT</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#features" class="text-gray-700 hover:text-teal-600 transition-colors">Features</a>
+                    <a href="#impact" class="text-gray-700 hover:text-teal-600 transition-colors">Impact</a>
+                    <a href="#proof" class="text-gray-700 hover:text-teal-600 transition-colors">Success Stories</a>
+                    <a href="#cta" class="animated-button text-sm">Start Free Trial</a>
+                </div>
+                <div class="md:hidden">
+                    <button class="text-gray-700 hover:text-teal-600">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center animated-gradient">
+        <div class="floating-elements">
+            <div class="floating-circle" style="width: 80px; height: 80px; top: 20%; left: 10%; animation-delay: 0s;"></div>
+            <div class="floating-circle" style="width: 60px; height: 60px; top: 60%; right: 15%; animation-delay: 2s;"></div>
+            <div class="floating-circle" style="width: 100px; height: 100px; top: 40%; left: 80%; animation-delay: 4s;"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 animated-heading">
+                    Stop Guessing. Start Leading.
+                </h1>
+                <p class="text-xl md:text-2xl text-white mb-8 opacity-90 fade-in">
+                    Custom GPTs built to help Nigerian entrepreneurs build strategy with clarity, speed, and confidence. Ditch expensive consultants. Gain your competitive edge.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in">
+                    <a href="#features" class="animated-button gold-button pulse-animation">
+                        <i class="fas fa-rocket mr-2"></i>
+                        Build My Strategy Now
+                    </a>
+                    <a href="#cta" class="animated-button secondary-button bg-white text-teal-600 border-white hover:bg-teal-600 hover:text-white">
+                        <i class="fas fa-calendar-alt mr-2"></i>
+                        Request a Free Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 animated-heading fade-in">
+                    Hard Work Isn't Enough Without Direction.
+                </h2>
+                <div class="max-w-4xl mx-auto">
+                    <p class="text-xl text-gray-700 mb-6 fade-in">
+                        You're doing everything right: showing up, pushing hard, investing your savings. But you still feel like you're spinning your wheels. Most Nigerian SMEs don't lack hustle. They lack a strategy. A clear, confident plan that connects vision to execution.
+                    </p>
+                    <p class="text-xl font-semibold fade-in" style="color: var(--navy);">
+                        And strategy consultants? ₦500,000 and a 3-month wait. No thanks.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="py-20" style="background: linear-gradient(135deg, rgba(20, 184, 166, 0.05), rgba(30, 58, 138, 0.05));">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 animated-heading fade-in">
+                    Your Strategic Planning Dream Team. Compressed Into a Custom GPT.
+                </h2>
+                <p class="text-xl text-gray-700 mb-12 fade-in">
+                    Meet your new team of AI agents:
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <div class="agent-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-search text-2xl mr-3" style="color: var(--teal);"></i>
+                        <h3 class="text-lg font-semibold">Market Discovery</h3>
+                    </div>
+                    <p class="text-gray-600">Know where you stand and who needs you</p>
+                </div>
+                
+                <div class="agent-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-eye text-2xl mr-3" style="color: var(--navy);"></i>
+                        <h3 class="text-lg font-semibold">Vision Agent</h3>
+                    </div>
+                    <p class="text-gray-600">Define a future worth building</p>
+                </div>
+                
+                <div class="agent-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-building text-2xl mr-3" style="color: var(--gold);"></i>
+                        <h3 class="text-lg font-semibold">Brand Architect</h3>
+                    </div>
+                    <p class="text-gray-600">Position your business with power</p>
+                </div>
+                
+                <div class="agent-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-gift text-2xl mr-3" style="color: var(--teal);"></i>
+                        <h3 class="text-lg font-semibold">Offer Designer</h3>
+                    </div>
+                    <p class="text-gray-600">Package what customers can't resist</p>
+                </div>
+                
+                <div class="agent-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-chart-line text-2xl mr-3" style="color: var(--navy);"></i>
+                        <h3 class="text-lg font-semibold">Value Modeler</h3>
+                    </div>
+                    <p class="text-gray-600">Design revenue streams that grow</p>
+                </div>
+                
+                <div class="agent-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-target text-2xl mr-3" style="color: var(--gold);"></i>
+                        <h3 class="text-lg font-semibold">Goals & Metrics Coach</h3>
+                    </div>
+                    <p class="text-gray-600">Track what really matters</p>
+                </div>
+                
+                <div class="agent-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-map text-2xl mr-3" style="color: var(--teal);"></i>
+                        <h3 class="text-lg font-semibold">Execution Planner</h3>
+                    </div>
+                    <p class="text-gray-600">Map your playbook</p>
+                </div>
+                
+                <div class="agent-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-shield-alt text-2xl mr-3" style="color: var(--navy);"></i>
+                        <h3 class="text-lg font-semibold">Strategy Auditor</h3>
+                    </div>
+                    <p class="text-gray-600">Check your blind spots</p>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <p class="text-xl font-semibold fade-in" style="color: var(--navy);">
+                    Each agent guides you through a step in your full strategic plan.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 animated-heading fade-in">
+                    Fortune 500 Thinking. Nigerian Hustle.
+                </h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <div class="feature-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-clock text-3xl mr-4" style="color: var(--teal);"></i>
+                        <h3 class="text-xl font-semibold">Lightning Fast</h3>
+                    </div>
+                    <p class="text-gray-600">Full business strategy in 2–3 weeks</p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-university text-3xl mr-4" style="color: var(--navy);"></i>
+                        <h3 class="text-xl font-semibold">Elite Frameworks</h3>
+                    </div>
+                    <p class="text-gray-600">Frameworks used by McKinsey, Harvard, and top local consultants</p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-tag text-3xl mr-4" style="color: var(--gold);"></i>
+                        <h3 class="text-xl font-semibold">Affordable Access</h3>
+                    </div>
+                    <p class="text-gray-600">Access from just ₦25,000/month during pilot</p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-comments text-3xl mr-4" style="color: var(--teal);"></i>
+                        <h3 class="text-xl font-semibold">Personal Support</h3>
+                    </div>
+                    <p class="text-gray-600">WhatsApp coaching and weekly check-ins</p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-flag text-3xl mr-4" style="color: var(--navy);"></i>
+                        <h3 class="text-xl font-semibold">Built for Nigeria</h3>
+                    </div>
+                    <p class="text-gray-600">Built for Nigerian entrepreneurs, startups, and teams</p>
+                </div>
+                
+                <div class="feature-card fade-in">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-gift text-3xl mr-4" style="color: var(--gold);"></i>
+                        <h3 class="text-xl font-semibold">Risk-Free Trial</h3>
+                    </div>
+                    <p class="text-gray-600">21-day free trial. No credit card needed.</p>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <a href="#cta" class="animated-button gold-button pulse-animation">
+                    <i class="fas fa-rocket mr-2"></i>
+                    Join the Pilot
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="py-20" style="background: linear-gradient(135deg, var(--navy), var(--teal));">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 text-white fade-in">
+                    Know Exactly What to Do Next. And Why.
+                </h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <div class="text-center fade-in">
+                    <div class="bg-white bg-opacity-10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-lightbulb text-3xl text-yellow-300"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">End Confusion</h3>
+                    <p class="text-gray-200">Say goodbye to guesswork and confusion</p>
+                </div>
+                
+                <div class="text-center fade-in">
+                    <div class="bg-white bg-opacity-10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-handshake text-3xl text-yellow-300"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Pitch Confidently</h3>
+                    <p class="text-gray-200">Pitch with confidence to investors or customers</p>
+                </div>
+                
+                <div class="text-center fade-in">
+                    <div class="bg-white bg-opacity-10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-users text-3xl text-yellow-300"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Align Teams</h3>
+                    <p class="text-gray-200">Align your team with one clear direction</p>
+                </div>
+                
+                <div class="text-center fade-in">
+                    <div class="bg-white bg-opacity-10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-rocket text-3xl text-yellow-300"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Scale Smart</h3>
+                    <p class="text-gray-200">Get unstuck and scale with purpose</p>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <p class="text-2xl font-semibold text-white fade-in">
+                    You're not just hustling. You're building with precision.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section id="proof" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 animated-heading fade-in">
+                    Built With Nigerian Entrepreneurs in Mind. Validated in the Field.
+                </h2>
+                <p class="text-xl text-gray-700 mb-12 max-w-4xl mx-auto fade-in">
+                    Early-stage tech startups in Abuja. Agribusiness founders in Enugu. Online schools in Ibadan. They're already using Strategic Planning GPT to clarify their path forward.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div class="text-center fade-in">
+                    <div class="stats-counter">90%</div>
+                    <p class="text-gray-600 text-lg">Report Higher Clarity</p>
+                </div>
+                
+                <div class="text-center fade-in">
+                    <div class="stats-counter">100%</div>
+                    <p class="text-gray-600 text-lg">Completed Full Strategic Plans</p>
+                </div>
+                
+                <div class="text-center fade-in">
+                    <div class="stats-counter">3</div>
+                    <p class="text-gray-600 text-lg">Weeks Average Completion</p>
+                </div>
+            </div>
+            
+            <div class="testimonial-card max-w-4xl mx-auto fade-in">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-teal-500 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-quote-left text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-lg">Nigerian Entrepreneur</h4>
+                        <p class="text-gray-600">Tech Startup Founder</p>
+                    </div>
+                </div>
+                <p class="text-gray-700 text-lg italic">
+                    "Strategic Planning GPT helped us move from confusion to clarity in just 2 weeks. We now have a roadmap that actually makes sense for our Nigerian market."
+                </p>
+            </div>
+            
+            <div class="text-center mt-12">
+                <p class="text-xl font-semibold fade-in" style="color: var(--navy);">
+                    Your business could be next.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section id="cta" class="py-20 animated-gradient">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8 text-white fade-in">
+                Plan Like a CEO. Execute Like a Pro.
+            </h2>
+            <p class="text-xl text-white mb-12 opacity-90 fade-in">
+                Join the elite group of Nigerian entrepreneurs who are building their businesses with precision and purpose.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in">
+                <a href="#" class="animated-button gold-button pulse-animation">
+                    <i class="fas fa-play mr-2"></i>
+                    Start My Free Trial
+                </a>
+                <a href="#" class="animated-button secondary-button bg-white text-teal-600 border-white hover:bg-teal-600 hover:text-white">
+                    <i class="fas fa-phone mr-2"></i>
+                    Talk to Strategy Support
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-brain text-2xl mr-3 text-teal-400"></i>
+                        <span class="text-xl font-bold">Strategic Planning GPT</span>
+                    </div>
+                    <p class="text-gray-400">Empowering Nigerian entrepreneurs with AI-driven strategic planning solutions.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Product</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-teal-400 transition-colors">Features</a></li>
+                        <li><a href="#" class="hover:text-teal-400 transition-colors">Pricing</a></li>
+                        <li><a href="#" class="hover:text-teal-400 transition-colors">Free Trial</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-teal-400 transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-teal-400 transition-colors">WhatsApp Support</a></li>
+                        <li><a href="#" class="hover:text-teal-400 transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-teal-400 transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-teal-400 transition-colors">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-teal-400 transition-colors">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Strategic Planning GPT. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Counter animation
+        function animateCounter(element, target, duration) {
+            const start = Date.now();
+            const increment = target / (duration / 16);
+            let current = 0;
+
+            function updateCounter() {
+                const elapsed = Date.now() - start;
+                if (elapsed < duration) {
+                    current += increment;
+                    element.textContent = Math.floor(current) + (element.textContent.includes('%') ? '%' : '');
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = target + (element.textContent.includes('%') ? '%' : '');
+                }
+            }
+
+            updateCounter();
+        }
+
+        // Animate counters when they come into view
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const text = counter.textContent.trim();
+                    if (text === '90%') {
+                        animateCounter(counter, 90, 2000);
+                    } else if (text === '100%') {
+                        animateCounter(counter, 100, 2000);
+                    } else if (text === '3') {
+                        animateCounter(counter, 3, 2000);
+                    }
+                    counterObserver.unobserve(counter);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.stats-counter').forEach(counter => {
+            counterObserver.observe(counter);
+        });
+
+        // Add hover effects for feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

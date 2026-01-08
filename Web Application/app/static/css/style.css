@@ -1,0 +1,91 @@
+body{
+    background:linear-gradient(to right, rgb(64,165,224), rgb(58, 57, 57));
+}
+header{
+    background:linear-gradient(to right, rgb(76,56,6), blanchedalmond);
+    padding:10px;
+}
+header nav{
+    text-align:center;
+}
+header nav ul li{
+    list-style-type: none;
+    display: inline-block;
+}
+header nav ul li a{
+    text-decoration: none;
+    margin-right: 5px;
+    color: blanchedalmond;
+}
+header nav ul li a:last-child{
+    margin-right: 100px;
+}
+
+header nav ul li a:hover{
+    color:black;
+    background:white
+}
+
+.head{
+    text-align: center;
+    color:darkslategray
+}
+
+.table{
+    width: 60%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    color: whitesmoke
+}
+
+th, td{
+    border:1px solid;
+    padding:8px;
+    text-align:left;
+}
+
+.button_primary{
+    display:inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: darkblue;
+    background:linear-gradient(rgb(64,165,224), green);
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.button_danger{
+    display:inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: darkblue;
+    background:linear-gradient(green, red);
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.header{
+    text-align: center;
+    color:darkslategray;
+}
+
+.footer{
+    color:white;
+}
+
+.name{
+    display:inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: darkblue;
+    background:linear-gradient(rgb(64,165,224), green);
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+}
+

@@ -1,0 +1,41 @@
+{% extends "index.html" %}
+
+{% block title %} Customer Page {% endblock %}
+
+{% block content %}
+
+<h1>Here are your details</h1>
+<br>
+<div class="table">
+    <a class="button_primary" href="{{url_for('customer.add_customerdetails')}}">Enter your details</a> &nbsp;
+    <hr>
+            <form method="POST" action="{{url_for('customer.delete_all_customers')}}">
+                <button type="submit" onclick="return confirm('Are you sure you want to delete your details')" class="button_primary">Delete My Details</button>
+            </form>
+</div>
+<br>
+<table class="table">
+    <tr>
+
+        <th>Order ID</th>
+        <th>Customer Name</th>
+        <th>Customer Code</th>
+        <th>Total Price</th>
+        <th>Action</th>
+    </tr>
+    {% for i in cus %}
+    <tr>
+        <td>{{ i.order.id }}</td>
+        <td>{{ i.name }}</td>
+        <td>{{ i.code }}</td>
+        <td>{{ i.price }}</td>
+        <td><a class="button_primary" href="{{url_for('customer.update_customer', id=i.id)}}">Edit Customer Details</a> &nbsp
+            <form action="{{url_for('customer.delete_customer', id=i.id)}}" method="POST">
+                <button type="submit" onclick="return confirm('Are you sure you want to delete your details')" class="button_danger">Delete Details</button>
+            </form>
+            
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

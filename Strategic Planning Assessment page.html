@@ -1,0 +1,163 @@
+<div style="max-width:800px;margin:auto;padding:2rem;background:url('https://t3.ftcdn.net/jpg/04/90/48/66/360_F_490486602_rPq51t9924tK6203XiziO0njuu38rr0P.jpg') no-repeat center center/cover;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.08);font-family:'Inter',sans-serif;color:#111827;">
+  <h3 style="background:linear-gradient(135deg,#c6ad05,#1e3a8a);color:white;padding:1rem 2rem;font-weight:600;border:none;border-radius:12px;width:100%;margin-top:1rem;cursor:pointer;box-shadow:0 4px 15px rgba(20,184,166,0.3);">🧠 MRT Strategic Planning Assessment</h3>
+  <h4 style="text-align:center;font-size:1.2rem;margin-bottom:1rem;color:#030253;">To provide you with personalized insights, please enter:</h4>
+  <div style="width:100%;height:6px;background:#e5e7eb;border-radius:3px;overflow:hidden;margin-bottom:1rem;">
+    <div id="mrtProgressFill" style="height:100%;background:linear-gradient(90deg,#073273,#041f4a);width:0%;transition:width 0.3s;"></div>
+  </div>
+
+  <div style="text-align:center;color:#111100;font-size:0.9rem;margin-bottom:2rem;">
+    <span id="mrtCurrentSlide">1</span> of <span id="mrtTotalSlides">1</span> • <span id="mrtPercent">0%</span>
+  </div>
+  <form id="assessment-form">
+    <div class="mrt-slide active" data-slide="1">
+      <div style="margin-bottom:1rem;"><label style="font-weight:bold;"><span style="color:red;">*</span> Full Name</label><input type="text" name="name" required="" style="width:100%;padding:12px;border-radius:8px;border:1px solid #ccc;"></div>
+      <div style="margin-bottom:1rem;"><label style="font-weight:bold;"><span style="color:red;">*</span> Email</label><input type="email" name="email" required="" style="width:100%;padding:12px;border-radius:8px;border:1px solid #ccc;"></div>
+      <div style="margin-bottom:1rem;"><label style="font-weight:bold;"><span style="color:red;">*</span> Company Name</label><input type="text" name="company" required="" style="width:100%;padding:12px;border-radius:8px;border:1px solid #ccc;"></div>
+      <div style="margin-bottom:1rem;">
+        <label style="font-weight:600;">Industry</label>
+        <select name="industry" style="width:100%;padding:12px;border-radius:8px;border:1px solid #ccc;">
+          <option value="">Select Industry</option>
+          <option>Technology</option><option>Finance</option><option>Retail</option>
+          <option>Healthcare</option><option>Education</option><option>Other</option>
+        </select>
+      </div>
+    </div>
+    
+    <div id="mrtQuestionsContainer"></div>
+
+    <div style="display:flex;justify-content:space-between;margin-top:2rem;">
+      <button type="button" id="mrtPrevBtn" style="padding:12px 24px;border:none;background:#c3a304;color:#ccd6e6;border-radius:8px;cursor:pointer;">Previous</button>
+      <button type="button" id="mrtNextBtn" style="padding:12px 24px;border:none;background:#073273;color:white;border-radius:8px;cursor:pointer;">Next</button>
+      <button type="submit" id="mrtSubmitBtn" style="display:none;padding:12px 24px;border:none;background:#073273;color:white;border-radius:8px;cursor:pointer;">🚀 Submit Assessment</button>
+    </div>
+    <button type="submit" style="background:linear-gradient(135deg,#c6ad05,#1e3a8a);color:white;padding:1rem 2rem;font-weight:600;border:none;border-radius:12px;width:100%;margin-top:1rem;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.2);">🚀 Submit Assessment</button>
+  </form>
+
+  <p style="text-align:center;color:#010713;font-size:0.9rem;margin-top:2rem;">© 2025 MRT Net Solutions</p>
+</div>
+
+<script>
+(function(){
+  const mrtQuestions = [
+    { text:"Strategic Vision Clarity", options:[["Everyone gives the same clear, specific answer",10],["Most give vague answers",7],["Answers vary significantly",5],["Most struggle to articulate clearly",3],["No formal vision",0]] },
+    { text:"Goal Setting & Measurement", options:[["Specific measurable OKRs monthly",10],["Goals reviewed quarterly",7],["Annual targets occasionally",5],["General goals without measurement",3],["No formal goal‑setting",0]] },
+    { text:"Competitive Intelligence", options:[["Monthly analysis with insights",10],["Quarterly reviews",7],["Monitor informally",5],["Only on major moves",3],["Rarely analyze",0]] },
+    { text:"Market Positioning", options:[["Clear, tested differentiation",10],["Know strengths",7],["Some advantages",5],["Compete mainly on price",3],["Not confident",0]] },
+    { text:"Strategic Decision Making", options:[["Structured evaluation/data",10],["Team discussions/framework",7],["Informal factors",5],["Experience‑based",3],["Reactive decisions",0]] },
+    { text:"Resource Allocation", options:[["Prioritized ROI-based",10],["Consider importance/resources",7],["Based on urgency",5],["Immediate needs",3],["Random allocation",0]] },
+    { text:"Performance Monitoring", options:[["Adjust within weeks",10],["Quarterly reviews",7],["Change on major shifts",5],["Stick to plan",3],["Rarely adjust",0]] },
+    { text:"Team Strategic Alignment", options:[["Everyone aligned",10],["Most support strategy",7],["Key players aligned",5],["Some inconsistency",3],["Often conflicting",0]] },
+    { text:"Innovation & Adaptation", options:[["Formal innovation process",10],["Regular idea discussions",7],["Occasional consideration",5],["Optimize current ops",3],["Rarely change",0]] },
+    { text:"Success Metrics", options:[["Strategic KPIs long-term",10],["Multiple key metrics",7],["Basic financial + ops",5],["Revenue/profit only",3],["No metrics",0]] },
+    { text:"Current State Assessment", options:[["Strategically ahead and growing",0],["Performing well but room",0],["Missing opportunities",0],["Surviving but struggling",0],["Reactive mode",0]] },
+    { text:"Future State Vision", options:[["Market leader growth",0],["Strong regional player",0],["Stable profitable",0],["Surviving/growing",0],["Not sure",0]] },
+    { text:"Strategic Barriers", options:[["Lack planning processes",0],["No time to work on business",0],["Limited resources",0],["Unclear priorities",0],["Nigeria-specific challenges",0],["Difficulty differentiating",0],["Other (please describe)",0]], isText:true },
+    { text:"Solution Preferences", options:[["Complete system + guidance",0],["Frameworks/templates",0],["One-time session",0],["Training team",0],["Educational tips",0]] },
+    { text:"Additional Context (optional)", options:[], isText:true }
+  ];
+
+  let current = 1, total = mrtQuestions.length + 1;
+  document.getElementById('mrtTotalSlides').textContent = total;
+
+  function makeSlide(q, idx) {
+    const slide = document.createElement('div');
+    slide.className = 'mrt-slide';
+    slide.setAttribute('data-slide', idx+2);
+    slide.style.display='none';
+    const h = document.createElement('h3');
+    h.textContent = `Question ${idx+1}: ${q.text}`;
+    slide.appendChild(h);
+    if (q.isText) {
+      const ta = document.createElement('textarea');
+      ta.name = `q${idx+2}`; ta.rows=4;
+      slide.appendChild(ta);
+    } else {
+      q.options.forEach((opt,j)=>{
+        const div = document.createElement('div');
+        div.style.marginBottom='0.6rem';
+        const input = document.createElement('input');
+        input.type='radio'; input.name=`q${idx+2}`; input.value=opt[1]; input.id=`q${idx+2}_opt${j}`;
+        const label = document.createElement('label');
+        label.setAttribute('for',input.id);
+        label.textContent = opt[0];
+        div.appendChild(input); div.appendChild(label);
+        slide.appendChild(div);
+      });
+    }
+    document.getElementById('mrtQuestionsContainer').appendChild(slide);
+  }
+
+  mrtQuestions.forEach((q,i)=>makeSlide(q,i));
+
+  function updateUI() {
+    document.getElementById('mrtCurrentSlide').textContent = current;
+    const pct = Math.round(current/total * 100);
+    document.getElementById('mrtPercent').textContent = pct + '%';
+    document.getElementById('mrtProgressFill').style.width = pct + '%';
+    document.getElementById('mrtPrevBtn').style.visibility = current>1?'visible':'hidden';
+    document.getElementById('mrtNextBtn').style.display = current<total?'inline-block':'none';
+    document.getElementById('mrtSubmitBtn').style.display = current===total?'inline-block':'none';
+    document.querySelectorAll('.mrt-slide').forEach(s=>s.style.display='none');
+    document.querySelector(`[data-slide="${current}"]`).style.display='block';
+  }
+
+  document.getElementById('mrtNextBtn').onclick = ()=>{
+    if(current<total) current++;
+    updateUI();
+  };
+  document.getElementById('mrtPrevBtn').onclick = ()=>{
+    if(current>1) current--;
+    updateUI();
+  };
+
+  document.getElementById("mrtAssessmentForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let total = 0;
+    const responses = [];
+
+    for (let i = 0; i < 10; i++) {
+        const selected = document.querySelector(`input[name="q${i + 1}"]:checked`);
+        if (selected) {
+            total += parseInt(selected.value);
+            responses.push({ question: `q${i + 1}`, value: selected.value });
+        }
+    }
+
+    const data = {
+        name: document.getElementById("mrtName").value,
+        email: document.getElementById("mrtEmail").value,
+        company: document.getElementById("mrtCompany").value,
+        industry: document.getElementById("mrtIndustry").value,
+        score: total,
+        responses: responses
+    };
+
+    fetch("/mrt/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(response => {
+        if (response.status === "ok") {
+            // Redirect to results page
+            if (total >= 90) {
+                window.location.href = "/strategic-excellence?score=" + total;
+            } else if (total >= 70) {
+                window.location.href = "/strategic-competence?score=" + total;
+            } else if (total >= 50) {
+                window.location.href = "/strategic-development?score=" + total;
+            } else if (total >= 30) {
+                window.location.href = "/strategic-foundation?score=" + total;
+            } else {
+                window.location.href = "/strategic-starting-point?score=" + total;
+            }
+        } else {
+            alert("Something went wrong. Please try again.");
+        }
+    });
+});
+  updateUI();
+})();
+</script>

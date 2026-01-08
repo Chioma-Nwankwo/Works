@@ -1,0 +1,40 @@
+{% extends "index.html" %}
+
+{% block title %} Order {% endblock %}
+
+{% block content %}
+
+<h1>Customer's Order</h1>
+<br>
+<div class="table">
+    <a class="button_primary" href="{{url_for('order.add_orders')}}">Add Order</a> &nbsp;
+    <hr>
+            <form method="POST" action="{{url_for('order.delete_all_orders')}}">
+                <button type="submit" onclick="return confirm('Are you sure you want to delete all your Orders')" class="button_danger">Delete all Orders in cart</button>
+            </form>
+</div>
+<br>
+<table class="table">
+    <tr>
+
+        <th>Menu ID</th>
+        <th>Order Name</th>
+        <th>Order Code</th>
+        <th>Action</th>
+    </tr>
+    {% for i in ord %}
+    <tr>
+        <td>{{ i.menu.id }}</td>
+        <td>{{ i.name }}</td>
+        <td>{{ i.code }}</td>
+        <td><a class="button_primary" href="{{url_for('order.update_order', id=i.id)}}">Edit Order</a> &nbsp
+            <form action="{{url_for('order.delete_order', id=i.id)}}" method="POST">
+                <button type="submit" onclick="return confirm('Are you sure you want to delete this Order')" class="button_danger">Delete all Orders in cart</button>
+            </form>
+            
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
